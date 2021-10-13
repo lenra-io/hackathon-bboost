@@ -2,11 +2,16 @@ module.exports = function homePage(data) {
     return {
         type: "flex",
         direction: "row",
-        spacing: 4,
+        mainAxisAlignment: "center",
+        fillParent: true,
         children: [
             {
                 type: "flex",
                 direction: "col",
+                mainAxisAlignment: "center",
+                crossAxisAlignment: "center",
+                fillParent: true,
+                spacing: 4,
                 children: [
                     {
                         type: "image",
@@ -14,6 +19,7 @@ module.exports = function homePage(data) {
                     },
                     {
                         type: "text",
+                        style: "headline1",
                         value: `Hello ${data.value}!`
                     }
                 ]
