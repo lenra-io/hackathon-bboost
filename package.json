@@ -1,7 +1,7 @@
 {
-  "name": "node12-template-hello-world",
+  "name": "lenra-bboost",
   "version": "1.0.0",
-  "description": "Lenra's node12 template hello world",
+  "description": "Lenra's BBoost Hackathon base application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
