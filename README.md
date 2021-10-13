@@ -4,7 +4,7 @@ This template repository provides an hello world example of a Lenra app to get y
 
 ## Requirements
 
-Docker is required to use the templates. Follow this [link](https://docs.docker.com/get-docker/) for official installation instructions. 
+Docker is required to use this application. Follow this [link](https://docs.docker.com/get-docker/) for official installation instructions. 
 
 ## Usage 
 
