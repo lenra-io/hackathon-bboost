@@ -1,6 +1,12 @@
-module.exports = (props) => {
+module.exports = (text, page) => {
     return {
         type: "menuItem",
-        ...props
+        text: text,
+        onPressed: {
+            action: "NavigateTo",
+            props: {
+                page: page,
+            }
+        }
     }
 }

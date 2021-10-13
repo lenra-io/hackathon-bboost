@@ -1,3 +1,5 @@
+const actions = require("../../listeners/actions")
+
 module.exports = function homePage(data) {
     return {
         type: "flex",
@@ -13,8 +15,14 @@ module.exports = function homePage(data) {
                         path: "appicon.png"
                     },
                     {
-                        type: "text",
-                        value: `Hello ${data.value}!`
+                        type: "button",
+                        text: `click ${data.value}!`,
+                        onPressed: {
+                            action: actions.SET_VALUE,
+                            props: {
+                                value: "Me",
+                            }
+                        }
                     }
                 ]
             }

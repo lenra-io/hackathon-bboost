@@ -1,3 +1,4 @@
+const pages = require("../pages");
 const MenuItem = require("./MenuItem");
 
 module.exports = () => {
@@ -27,10 +28,8 @@ module.exports = () => {
                 {
                     type: "menu",
                     children: [
-                        MenuItem({ text: "Menu 1                    " }),
-                        MenuItem({ text: "Menu 2" }),
-                        MenuItem({ text: "Menu 3" }),
-                        MenuItem({ text: "Menu 4" }),
+                        MenuItem("Home page                    ", pages.HOME_PAGE),
+                        MenuItem("Error 404", pages.ERROR_404),
                     ]
                 }
             ]
