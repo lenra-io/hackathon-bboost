@@ -16,11 +16,12 @@ module.exports = function mainUi(data) {
 		root: {
 			type: "flex",
 			direction: "row",
-			crossAxisAlignment: "stretch",
+			fillParent: true,
 			children: [
 				LeftMenu(),
 				getCurrentPage(data.page, data)
 			],
 		}
+
 	};
 }
