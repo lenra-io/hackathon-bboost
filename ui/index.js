@@ -1,13 +1,17 @@
 'use strict'
 
-module.exports = function main(data) {
-  return {
-    root: {
-      type: "flex",
-      children: [{
-        type: "text",
-        value: `Hello ${data.value}!`
-      }]
-    }
-  }
+const homePage = require("./homePage");
+
+function getCurrentPage(currentPage, data) {
+	switch (currentPage) {
+		case "homePage":
+			return homePage(data);
+	}
 }
+
+module.exports =
+	function mainUi(data) {
+		return {
+			root: getCurrentPage(data.currentPage, data)
+		};
+	}
