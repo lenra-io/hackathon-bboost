@@ -1,6 +1,6 @@
 module.exports = function initData() {
     return {
-        currentPage: "homePage",
+        page: "homePage",
         value: "world"
     }
 }
