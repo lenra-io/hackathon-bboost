@@ -9,6 +9,7 @@ module.exports = async (action, data, props, event) => {
     if (actionFunction == null) require(`./actions/${actions.DEFAULT_ACTION}`);
     return actionFunction(data, props, event);
   } catch (exc) {
+
     console.log("Exception while executing action " + action, exc);
   }
   return data;
