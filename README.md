@@ -11,7 +11,7 @@ Docker is required to use the templates. Follow this [link](https://docs.docker.
 To run this application:
 ```bash
 # Go to the root of this repository
-cd hackathon-template
+cd hackathon-bboost
 # Run the app using docker
 docker run -it --rm -p 4000:4000 -v ${PWD}:/home/app/application lenra/devtools-node12
 ```
