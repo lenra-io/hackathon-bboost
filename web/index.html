@@ -7,23 +7,11 @@
   <title>Leaflet Generator</title>
   <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
   <script src="../node_modules/leaflet/dist/leaflet.js"></script>
+  <script src="../node_modules/leaflet-image/leaflet-image.js"></script>
   <style>
     #mapid {
-      height: 800px;
-      width: 1000px;
-    }
-
-    .huechange {
-      background-color: lightseagreen;
-      width: 3rem;
-      height: 3rem;
-      display: block;
-      left: -1.5rem;
-      top: -1.5rem;
-      position: relative;
-      border-radius: 3rem 3rem 0;
-      transform: rotate(45deg);
-      border: 1px solid #FFFFFF
+      height: 170px;
+      width: 320px;
     }
   </style>
 </head>
@@ -31,16 +19,14 @@
   <div id="mapid"></div>
 
   <script>
-    const datas = {"hops":[{"ip":"192.168.1.1","data":{"country_code":"FR","city":"La Rochelle","latitude":46.14998051397976,"longitude":-1.1512845018323963,"nbHops":1,"distance":0}},{"ip":"80.10.237.65","data":{"country_code":"FR","latitude":45.764043,"longitude":4.835659,"city":"Lyon","nbHops":1,"distance":464.67891215035587}},{"ip":"193.253.93.86","data":{"country_code":"FR","latitude":48.117266,"longitude":-1.6777926,"city":"Rennes","nbHops":2,"distance":559.1967020183588}},{"ip":"193.252.137.14","data":{"country_code":"FR","latitude":43.7101728,"longitude":7.2619532,"city":"Nice","nbHops":3,"distance":846.7412619783032}},{"ip":"66.249.95.102","data":{"country_code":"US","latitude":40.0149856,"longitude":-105.2705456,"city":"Boulder","nbHops":1,"distance":8514.803803690224}},{"ip":"108.170.244.198","data":{"country_code":"US","latitude":38.9071923,"longitude":-77.0368707,"city":"Washington","nbHops":2,"distance":2416.8138242350615}}],"nbHops":10,"totalDistance":12802.234504072303};
+    const datas = {"hops":[{"ip":"192.168.1.1","data":{"country_code":"FR","city":"La Rochelle","latitude":46.14998051397976,"longitude":-1.1512845018323963,"nbHops":1,"distance":0}},{"ip":"80.10.237.65","data":{"country_code":"FR","latitude":45.764043,"longitude":4.835659,"city":"Lyon","nbHops":1,"distance":464.67891215035587}},{"ip":"193.253.93.86","data":{"country_code":"FR","latitude":48.117266,"longitude":-1.6777926,"city":"Rennes","nbHops":2,"distance":559.1967020183588}},{"ip":"193.252.137.14","data":{"country_code":"FR","latitude":43.7101728,"longitude":7.2619532,"city":"Nice","nbHops":1,"distance":846.7412619783032}},{"ip":"72.14.202.100","data":{"country_code":"US","latitude":37.3860517,"longitude":-122.0838511,"city":"Mountain View","nbHops":2,"distance":9654.184534512979}},{"ip":"108.170.235.14","data":{"country_code":"US","latitude":38.9071923,"longitude":-77.0368707,"city":"Washington","nbHops":2,"distance":3902.4619032931378}}],"nbHops":9,"totalDistance":15427.263313953135}
 
     window.onload = function name(params) {
       var map = L.map('mapid').setView([0, 0], 13);
+
       // beautiful world map
       L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1
@@ -66,7 +52,7 @@
       map.fitBounds(L.featureGroup(markers).getBounds());
 
       // Add lines between markers with arrowheads
-            for (var i = 0; i < datas.hops.length - 1; i++) {
+      for (var i = 0; i < datas.hops.length - 1; i++) {
         var hop1 = datas.hops[i];
         var hop2 = datas.hops[i + 1];
         var line = L.polyline([
@@ -84,6 +70,7 @@
           "<b>Distance:</b> " + hop1.data.distance + "Km <br>"
         );
       }
+
     }
 
   </script>
