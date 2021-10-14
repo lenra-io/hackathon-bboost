@@ -8,6 +8,7 @@ module.exports = async function initData() {
     return {
         page: "homePage",
         applications: webistes.apps.map(app => app.name),
+        selectedApp: 0,
         selectedItems: [],
         forms: {},
         errors: {},
