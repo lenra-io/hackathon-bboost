@@ -20,4 +20,3 @@ function deg2rad(deg) {
 module.exports = {
   getDistanceFromLatLon
 }
-
