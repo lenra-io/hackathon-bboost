@@ -51,5 +51,15 @@ function cleanData(ips) {
         if (e.data == null) tmp.push(tmp[idx - 1]);
         else tmp.push(e);
     });
-    return tmp;
+
+    return tmp.reduce((acc, curr) => {
+        const last = acc.last;
+        if(last && curr.latitude == last.latitude && curr.longitude == last.longitude) {
+            last.nbHops++;
+            return acc;
+        } else {
+            curr.nbHops = 1;
+            return acc.concat([curr]);
+        }
+      }, []);
 }
