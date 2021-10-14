@@ -92,64 +92,7 @@ module.exports = function resultPage(data) {
                                 value: "Chemin que votre connexion emprunte : ",
                                 style: "headline2"
                             },
-                            {
-                                type: "flex",
-                                direction: "row",
-                                children: [
-                                    {
-                                        type: "flexible",
-                                        flex: 1,
-                                        fit: "tight",
-                                        child:
-                                        {
-                                            type: "styledContainer",
-                                            border: {
-                                                right: {},
-                                                bottom: {},
-                                                top: {},
-                                                left: {}
-                                            },
-                                            child: {
-                                                type: "flex",
-                                                mainAxisAlignment: "center",
-                                                padding: { top: 2, bottom: 2, right: 2, left: 2 },
-                                                children: [
-                                                    {
-                                                        type: "text",
-                                                        value: JSON.stringify(data.fakeData.hops)
-                                                    }
-                                                ]
-                                            }
-                                        },
-                                    },
-                                    {
-                                        type: "flexible",
-                                        flex: 1,
-                                        fit: "tight",
-                                        child:
-                                        {
-                                            type: "styledContainer",
-                                            border: {
-                                                right: {},
-                                                bottom: {},
-                                                top: {},
-                                                left: {}
-                                            },
-                                            child: {
-                                                type: "flex",
-                                                mainAxisAlignment: "center",
-                                                padding: { top: 2, bottom: 2, right: 2, left: 2 },
-                                                children: [
-                                                    {
-                                                        type: "text",
-                                                        value: "Km parcouru "
-                                                    }
-                                                ]
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
+                            // TODO : Add cityHops below
                         ]
                     }
                 ]
