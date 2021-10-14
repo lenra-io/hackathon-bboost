@@ -1,18 +1,27 @@
 const Traceroute = require('nodejs-traceroute');
+const ipToContryCode = require('./ipToContryCode');
 module.exports = async (url) => {
     var promise = new Promise((resolve, reject) => {
-        var ips = [];
         var hops = 0;
         const tracer = new Traceroute();
+        const promises = [];
         tracer.on("hop", (hop) => {
-            console.log(JSON.stringify(hop));
-            ips.push(hop.ip);
+            promises.push(
+                ipToContryCode(hop.ip).then((data) => {
+                    return {
+                        ip: hop.ip,
+                        data: data,
+                    }
+                })
+            );
             hops++;
         }).on("close", () => {
-            resolve({
-                ips: ips,
-                hops: hops,
-            });
+            Promise.all(promises).then(ips => {
+                resolve({
+                    ips: ips,
+                    hops: hops,
+                });
+            })
         });
         tracer.trace(url);
     });

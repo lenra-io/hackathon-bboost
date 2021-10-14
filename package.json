@@ -10,6 +10,7 @@
   "author": "Lenra",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.23.0",
     "nodejs-traceroute": "^1.2.0"
   }
 }
