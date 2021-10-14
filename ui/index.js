@@ -13,15 +13,6 @@ function getCurrentPage(pageName, data) {
 
 module.exports = function mainUi(data) {
 	return {
-		root: {
-			type: "flex",
-			direction: "row",
-			fillParent: true,
-			children: [
-				LeftMenu(),
-				getCurrentPage(data.page, data)
-			],
-		}
-
+		root: getCurrentPage(data.page, data)
 	};
 }
