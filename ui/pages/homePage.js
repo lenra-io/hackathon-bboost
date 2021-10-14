@@ -1,29 +1,5 @@
+const appCheckbox = require("../../components/appCheckbox");
 const appForm = require("../../components/appForm");
-const actions = require("../../listeners/actions");
-
-function checkbox(applicationname, data) {
-    return {
-        type: "flex",
-        direction: "col",
-        crossAxisAlignment: "center",
-        children: [
-            {
-                type: "text",
-                value: applicationname
-            },
-            {
-                type: "checkbox",
-                value: data.selectedItems.includes(applicationname),
-                onPressed: {
-                    action: actions.SET_CHECKBOX,
-                    props: {
-                        page: applicationname,
-                    }
-                }
-            }
-        ]
-    }
-}
 
 function showValidateButton(data) {
     if (data.selectedItems.length > 0) {
@@ -122,7 +98,7 @@ module.exports = function homePage(data) {
                         children: [{
                             type: "flex",
                             spacing: 2,
-                            children: data.applications.map(application => checkbox(application, data))
+                            children: data.applications.map(application => appCheckbox(application, data.selectedItems))
                         }]
                     }
                 ]
