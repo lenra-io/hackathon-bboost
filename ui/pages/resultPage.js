@@ -1,4 +1,4 @@
-module.exports = function homePage(data) {
+module.exports = function resultPage(data) {
     return {
         type: "flex",
         direction: "row",
