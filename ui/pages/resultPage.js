@@ -116,7 +116,7 @@ module.exports = function resultPage(data) {
                                                 children: [
                                                     {
                                                         type: "text",
-                                                        value: "Ville"
+                                                        value: JSON.stringify(data.fakeData.hops)
                                                     }
                                                 ]
                                             }
@@ -145,7 +145,6 @@ module.exports = function resultPage(data) {
                                                         value: "Km parcouru "
                                                     }
                                                 ]
-
                                             }
                                         }
                                     }
