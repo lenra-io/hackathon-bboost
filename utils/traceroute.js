@@ -18,23 +18,38 @@ module.exports = async (url) => {
             hops++;
         }).on("close", () => {
             Promise.all(promises).then(ips => {
+                return cleanData(ips);
+            }).then(ips => {
                 let _previous = 0;
                 ips.forEach(ip => {
                     if (_previous != 0)
-                        ip.data.distance = distanceUtils.getDistance(ip.data.lat, ip.data.lng, _previous.data.lat, _previous.data.lng);
+                        ip.data.distance = distanceUtils.getDistanceFromLatLon(ip.data.latitude, ip.data.longitude, _previous.data.latitude, _previous.data.longitude);
+                    else
+                        ip.data.distance = 0;
                     _previous = ip;
                 });
+                return ips;
+            }).then((ips) => {
                 resolve({
                     ips: ips,
                     hops: hops,
                     totalDistance: ips.reduce((acc, cur) => {
                         return acc + cur.data.distance;
-                    })
+                    }, 0)
                 });
-            })
+            });
         });
         tracer.trace(url);
     });
     return promise;
 
+}
+
+function cleanData(ips) {
+    var tmp = [];
+    ips.forEach((e, idx) => {
+        if (e.data == null) tmp.push(tmp[idx - 1]);
+        else tmp.push(e);
+    });
+    return tmp;
 }
