@@ -1,6 +1,8 @@
 module.exports = function initData() {
     return {
         page: "homePage",
-        value: "world"
+        applications: ["youtube", "facebook", "instagram"],
+        selectedItems: [],
+        forms: []
     }
 }
