@@ -1,10 +1,9 @@
-function calculateGlobalConsumption(data) {
-    let res = 0;
-    data.dataset.forEach((step) => res += step.emissionCarbone);
-    return res;
-}
+const header = require("../components/header");
+
 
 module.exports = function resultPage(data) {
+    console.log(data.dataset);
+    data.dataset.sites.map(console.log);
     return {
         type: "flex",
         direction: "col",
@@ -12,52 +11,7 @@ module.exports = function resultPage(data) {
         fillParent: true,
         crossAxisAlignment: "stretch",
         children: [
-            {
-                type: "styledContainer",
-                color: 0xFFFFFFFF,
-
-                child: {
-                    type: "flex",
-                    direction: "row",
-                    fillParent: true,
-                    mainAxisAlignment: "spaceBetween",
-                    padding: {
-                        left: 2,
-                        right: 2,
-                        top: 2,
-                        bottom: 2,
-                    },
-                    children: [
-                        {
-                            type: "flex",
-                            direction: "row",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "bboost.png"
-                                }
-                            ]
-                        },
-                        {
-                            type: "flex",
-                            direction: "row",
-                            spacing: 1.5,
-                            crossAxisAlignment: "center",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "logo-only-black-x64.png"
-                                },
-                                {
-                                    type: "text",
-                                    style: "headline1",
-                                    value: "Lenra"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
+            header(),
             {
                 type: "flex",
                 direction: "col",
@@ -78,7 +32,7 @@ module.exports = function resultPage(data) {
                             {
                                 type: "text",
                                 style: "headline3",
-                                value: `${calculateGlobalConsumption(data)} kWh`
+                                value: `0 kWh`
                             }
                         ]
                     },

@@ -1,4 +1,4 @@
-const actions = require("../listeners/actions");
+const actions = require("../../listeners/actions");
 
 module.exports = appCheckbox;
 

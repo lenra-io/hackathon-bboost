@@ -1,5 +1,6 @@
-const appCheckbox = require("../../components/appCheckbox");
-const appForm = require("../../components/appForm");
+const appCheckbox = require("../components/appCheckbox");
+const appForm = require("../components/appForm");
+const header = require("../components/header");
 
 function showValidateButton(data) {
     if (data.selectedItems.length > 0) {
@@ -30,51 +31,7 @@ module.exports = function homePage(data) {
         scroll: true,
         crossAxisAlignment: "stretch",
         children: [
-            {
-                type: "styledContainer",
-                color: 0xFFFFFFFF,
-                child: {
-                    type: "flex",
-                    direction: "row",
-                    fillParent: true,
-                    mainAxisAlignment: "spaceBetween",
-                    padding: {
-                        left: 2,
-                        right: 2,
-                        top: 2,
-                        bottom: 2,
-                    },
-                    children: [
-                        {
-                            type: "flex",
-                            direction: "row",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "bboost.png"
-                                }
-                            ]
-                        },
-                        {
-                            type: "flex",
-                            direction: "row",
-                            spacing: 1.5,
-                            crossAxisAlignment: "center",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "logo-only-black-x64.png"
-                                },
-                                {
-                                    type: "text",
-                                    style: "headline1",
-                                    value: "Lenra"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
+            header(),
             {
                 type: "flex",
                 direction: "col",
