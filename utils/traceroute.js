@@ -17,6 +17,8 @@ module.exports = async (url) => {
             hops++;
         }).on("close", () => {
             Promise.all(promises).then(ips => {
+                return cleanData(ips);
+            }).then((ips) => {
                 resolve({
                     ips: ips,
                     hops: hops,
@@ -27,4 +29,13 @@ module.exports = async (url) => {
     });
     return promise;
 
+}
+
+function cleanData(ips) {
+    var tmp = [];
+    ips.forEach((e, idx) => {
+        if (e.data == null) tmp.push(tmp[idx - 1]);
+        else tmp.push(e);
+    });
+    return ips;
 }
