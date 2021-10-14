@@ -1,3 +1,9 @@
+function calculateGlobalConsumption(data) {
+    let res = 0;
+    data.dataset.forEach((step) => res += step.emissionCarbone);
+    return res;
+}
+
 module.exports = function resultPage(data) {
     return {
         type: "flex",
@@ -60,17 +66,25 @@ module.exports = function resultPage(data) {
                 children: [
                     {
                         type: "flex",
+                        direction: "col",
+                        spacing: 2,
+                        crossAxisAlignment: "center",
                         children:[ 
                             { 
                                 type: "text", 
-                                value: "Consommation Générale en KW/H : ",
-                                style: "headline2"
+                                value: "Consommation Générale en kWh : ",
+                                style: "headline1"
                             },
-                        // {type: "text", value: data}
+                            {
+                                type: "text",
+                                style: "headline3",
+                                value: `${calculateGlobalConsumption(data)} kWh`
+                            }
                         ]
                     },
                     {
                         type: "flex",
+                        direction: "col",
                         children: [
                             {
                                 type: "text",

@@ -34,45 +34,49 @@ function appForm(applicationName, data) {
 
     if (applicationName == "YouTube") {
         fields.push({
-            type: "dropdownButton",
-            text: "Qualité",
-            icon: "arrow_drop_down",
-            size: "small",
-            child: {
-                type: "menu",
-                children: [
-                    {
-                        type: "menuItem",
-                        text: "1080p",
-                        onPressed: {
-                            action: actions.SET_QUALITY,
-                            props: {
-                                quality: 1080
-                            }
-                        }
-                    },
-                    {
-                        type: "menuItem",
-                        text: "720p",
-                        onPressed: {
-                            action: actions.SET_QUALITY,
-                            props: {
-                                quality: 720
-                            }
-                        }
-                    },
-                    {
-                        type: "menuItem",
-                        text: "480p",
-                        onPressed: {
-                            action: actions.SET_QUALITY,
-                            props: {
-                                quality: 480
-                            }
+            type: "flex",
+            direction: "col",
+            children: [
+                {
+                    type: "radio",
+                    value: "1080",
+                    groupValue: data.forms[applicationName] != null ? data.forms[applicationName].quality : "",
+                    label: "1080p",
+                    onPressed: {
+                        action: actions.SET_QUALITY,
+                        props: {
+                            page: applicationName,
+                            quality: "1080"
                         }
                     }
-                ]
-            }
+                },
+                {
+                    type: "radio",
+                    value: "720",
+                    groupValue: data.forms[applicationName] != null ? data.forms[applicationName].quality : "",
+                    label: "720p",
+                    onPressed: {
+                        action: actions.SET_QUALITY,
+                        props: {
+                            page: applicationName,
+                            quality: "720"
+                        }
+                    }
+                },
+                {
+                    type: "radio",
+                    value: "480",
+                    groupValue: data.forms[applicationName] != null ? data.forms[applicationName].quality : "",
+                    label: "480p",
+                    onPressed: {
+                        action: actions.SET_QUALITY,
+                        props: {
+                            page: applicationName,
+                            quality: "480"
+                        }
+                    }
+                }
+            ]
         });
     }
 
@@ -131,7 +135,6 @@ module.exports = function homePage(data) {
             {
                 type: "styledContainer",
                 color: 0xFFFFFFFF,
-
                 child: {
                     type: "flex",
                     direction: "row",
@@ -234,7 +237,6 @@ module.exports = function homePage(data) {
                 crossAxisAlignment: "end",
                 children: [showValidateButton(data)],
             }
-
         ]
     }
 
