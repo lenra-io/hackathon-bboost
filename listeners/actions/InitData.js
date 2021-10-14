@@ -3,6 +3,7 @@ module.exports = function initData() {
         page: "homePage",
         applications: ["YouTube", "Facebook", "Instagram"],
         selectedItems: [],
-        forms: [],
+        forms: {},
+        errors: {},
     }
 }

@@ -22,8 +22,34 @@ function checkbox(applicationname, data) {
             }
         ]
     }
+}
 
-
+function textfield(applicationname, data){
+    return{
+        type: "flex",
+        mainAxisAlignment: "center",
+        crossAxisAlignment: "center",
+        fillParent: true,
+        spacing: 1,
+        children: [
+            {
+                type: "text",
+                value: applicationname,
+            },
+            {
+                type: "textfield",
+                value: "",
+                error: applicationname in data.errors,
+                hintText: "Nombre d'heures (15min = 0.25)",
+                onChanged: {
+                    action: actions.SET_TEXTFIELD,
+                    props: {
+                        page: applicationname
+                    }
+                },
+            }
+        ]
+    }
 }
 
 module.exports = function homePage(data) {
@@ -115,22 +141,11 @@ module.exports = function homePage(data) {
                     },
                     {
                         type: "flex",
-                        direction: "row",
-                        children: [
-                            {
-                                type: "text",
-                                value: "YouTube"
-                            },
-                            // {
-                            //     type: "dropdownButton",
-                            //     value: "YouTube"
-                            // },
-                            {
-                                type: "text",
-                                value: "YouTube"
-                            }
-                        ]
+                        spacing: 5,
+                        direction: "col",
+                        children:  data.selectedItems.map(application => textfield(application, data))
                     }
+                   
                 ]
             }
 
