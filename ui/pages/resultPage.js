@@ -27,16 +27,21 @@ module.exports = function resultPage(data) {
                             direction: "row",
                             children: [
                                 {
-                                    type: "text",
-                                    style: "headline1",
-                                    value: "BBoost"
+                                    type: "image",
+                                    path: "bboost.png"
                                 }
                             ]
                         },
                         {
                             type: "flex",
                             direction: "row",
+                            spacing: 1.5,
+                            crossAxisAlignment: "center",
                             children: [
+                                {
+                                    type: "image",
+                                    path: "logo-only-black-x64.png"
+                                },
                                 {
                                     type: "text",
                                     style: "headline1",
@@ -50,6 +55,7 @@ module.exports = function resultPage(data) {
             {
                 type: "flex",
                 direction: "col",
+                spacing: 5,
                 crossAxisAlignment: "center",
                 children: [
                     {
@@ -57,7 +63,8 @@ module.exports = function resultPage(data) {
                         children:[ 
                             { 
                                 type: "text", 
-                                value: "Consommation Générale en KW/H : " 
+                                value: "Consommation Générale en KW/H : ",
+                                style: "headline2"
                             },
                         // {type: "text", value: data}
                         ]
@@ -67,7 +74,8 @@ module.exports = function resultPage(data) {
                         children: [
                             {
                                 type: "text",
-                                value: "Chemin que votre connexion empreinte : "
+                                value: "Chemin que votre connexion empreinte : ",
+                                style: "headline2"
                             }
                         ]
                     }

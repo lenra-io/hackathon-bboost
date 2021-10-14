@@ -2,55 +2,100 @@ const actions = require("../../listeners/actions");
 
 function checkbox(applicationname, data) {
     return {
-            type: "flex",
-            direction: "col",
-            crossAxisAlignment: "center",
-            children: [
-                {
-                    type: "text",
-                    value: applicationname
-                },
-                {
-                    type: "checkbox",
-                    value: data.selectedItems.includes(applicationname),
-                    onPressed: {
-                        action: actions.SET_CHECKBOX,
-                        props: {
-                            page: applicationname,
-                        }
+        type: "flex",
+        direction: "col",
+        crossAxisAlignment: "center",
+        children: [
+            {
+                type: "text",
+                value: applicationname
+            },
+            {
+                type: "checkbox",
+                value: data.selectedItems.includes(applicationname),
+                onPressed: {
+                    action: actions.SET_CHECKBOX,
+                    props: {
+                        page: applicationname,
                     }
                 }
-            ]
+            }
+        ]
     }
-    
-    
 }
 
-function textfield(applicationname, data) {
+function appForm(applicationName, data) {
+    let fields = [
+        {
+            type: "text",
+            value: applicationName,
+        },
+    ];
+
+    if (applicationName == "YouTube") {
+        fields.push({
+            type: "dropdownButton",
+            text: "Qualité",
+            icon: "arrow_drop_down",
+            size: "small",
+            child: {
+                type: "menu",
+                children: [
+                    {
+                        type: "menuItem",
+                        text: "1080p",
+                        onPressed: {
+                            action: actions.SET_QUALITY,
+                            props: {
+                                quality: 1080
+                            }
+                        }
+                    },
+                    {
+                        type: "menuItem",
+                        text: "720p",
+                        onPressed: {
+                            action: actions.SET_QUALITY,
+                            props: {
+                                quality: 720
+                            }
+                        }
+                    },
+                    {
+                        type: "menuItem",
+                        text: "480p",
+                        onPressed: {
+                            action: actions.SET_QUALITY,
+                            props: {
+                                quality: 480
+                            }
+                        }
+                    }
+                ]
+            }
+        });
+    }
+
+    fields.push({
+        type: "textfield",
+        value: "",
+        error: applicationName in data.errors,
+        hintText: "Nombre d'heures (15min = 0.25)",
+        onChanged: {
+            action: actions.SET_HOURS,
+            props: {
+                page: applicationName
+            }
+        },
+    });
+
     return {
         type: "flex",
         mainAxisAlignment: "center",
         crossAxisAlignment: "center",
         fillParent: true,
         spacing: 1,
-        children: [
-            {
-                type: "text",
-                value: applicationname,
-            },
-            {
-                type: "textfield",
-                value: "",
-                error: applicationname in data.errors,
-                hintText: "Nombre d'heures (15min = 0.25)",
-                onChanged: {
-                    action: actions.SET_TEXTFIELD,
-                    props: {
-                        page: applicationname
-                    }
-                },
-            }
-        ]
+        children: fields
     }
 }
 
@@ -80,6 +125,7 @@ module.exports = function homePage(data) {
         direction: "col",
         spacing: 4,
         fillParent: true,
+        scroll: true,
         crossAxisAlignment: "stretch",
         children: [
             {
@@ -103,16 +149,21 @@ module.exports = function homePage(data) {
                             direction: "row",
                             children: [
                                 {
-                                    type: "text",
-                                    style: "headline1",
-                                    value: "BBoost"
+                                    type: "image",
+                                    path: "bboost.png"
                                 }
                             ]
                         },
                         {
                             type: "flex",
                             direction: "row",
+                            spacing: 1.5,
+                            crossAxisAlignment: "center",
                             children: [
+                                {
+                                    type: "image",
+                                    path: "logo-only-black-x64.png"
+                                },
                                 {
                                     type: "text",
                                     style: "headline1",
@@ -141,16 +192,12 @@ module.exports = function homePage(data) {
                     {
                         type: "flex",
                         direction: "row",
+                        scroll: true,
                         spacing: 2,
-                        children: [{ 
-                            type: "flexible",
-                            fit: "tight",
-                            child:{
-                                type: "flex",
-                                spacing : 2,
-                                children: data.applications.map(application => checkbox(application, data))
-
-                            } 
+                        children: [{
+                            type: "flex",
+                            spacing: 2,
+                            children: data.applications.map(application => checkbox(application, data))
                         }]
                     }
                 ]
@@ -174,7 +221,7 @@ module.exports = function homePage(data) {
                         type: "flex",
                         spacing: 5,
                         direction: "col",
-                        children: data.selectedItems.map(application => textfield(application, data))
+                        children: data.selectedItems.map(application => appForm(application, data))
                     }
 
                 ]
@@ -182,7 +229,7 @@ module.exports = function homePage(data) {
             {
                 type: "flex",
                 fillParent: true,
-                padding: {right: 2},
+                padding: { right: 2 },
                 mainAxisAlignment: "center",
                 crossAxisAlignment: "end",
                 children: [showValidateButton(data)],

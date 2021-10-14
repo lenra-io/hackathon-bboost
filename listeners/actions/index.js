@@ -4,5 +4,6 @@ module.exports = {
     NAVIGATE_TO: "NaviagateTo",
     SET_VALUE: "SetValue",
     SET_CHECKBOX: "CheckboxValue",
-    SET_TEXTFIELD: "SetTextfield",
+    SET_HOURS: "SetHours",
+    SET_QUALITY: "SetQuality",
 }
