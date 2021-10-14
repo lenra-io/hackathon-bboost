@@ -31,8 +31,8 @@ module.exports = async (url) => {
                 return ips;
             }).then((ips) => {
                 resolve({
-                    ips: ips,
-                    hops: hops,
+                    hops: ips,
+                    nbHops: hops,
                     totalDistance: ips.reduce((acc, cur) => {
                         return acc + cur.data.distance;
                     }, 0)
