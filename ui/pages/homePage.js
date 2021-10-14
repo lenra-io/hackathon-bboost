@@ -1,18 +1,29 @@
-const actions = require("../../listeners/actions")
+const actions = require("../../listeners/actions");
 
-function checkbox(applicationname, data){
-    return{
-        type: "checkbox",
-        value: data.selectedItems.includes(applicationname),
-        label: applicationname,
-        onPressed: {
-            action = action.SET_CHECKBOX,
-            props : {
-                page: applicationname,
+function checkbox(applicationname, data) {
+    return {
+        type: "flex",
+        direction: "col",
+        crossAxisAlignment: "center",
+        children: [
+            {
+                type: "text",
+                value: applicationname
+            },
+            {
+                type: "checkbox",
+                value: data.selectedItems.includes(applicationname),
+                onPressed: {
+                    action: actions.SET_CHECKBOX,
+                    props: {
+                        page: applicationname,
+                    }
+                }
             }
-        }
-
+        ]
     }
+
+
 }
 
 module.exports = function homePage(data) {
@@ -67,6 +78,7 @@ module.exports = function homePage(data) {
             {
                 type: "flex",
                 direction: "col",
+                crossAxisAlignment: "center",
                 spacing: 2,
                 padding: {
                     left: 2,
@@ -81,18 +93,15 @@ module.exports = function homePage(data) {
                     {
                         type: "flex",
                         direction: "row",
-                        children: [
-                            {
-                                type: "text",
-                                value: "foo"
-                            }
-                        ]
+                        spacing: 2,
+                        children: data.applications.map(application => checkbox(application, data))
                     }
                 ]
             },
             {
                 type: "flex",
                 direction: "col",
+                crossAxisAlignment: "center",
                 spacing: 2,
                 padding: {
                     left: 2,
@@ -112,10 +121,10 @@ module.exports = function homePage(data) {
                                 type: "text",
                                 value: "YouTube"
                             },
-                            {
-                                type: "dropdownButton",
-                                value: "YouTube"
-                            },
+                            // {
+                            //     type: "dropdownButton",
+                            //     value: "YouTube"
+                            // },
                             {
                                 type: "text",
                                 value: "YouTube"
