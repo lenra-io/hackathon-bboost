@@ -74,6 +74,40 @@ module.exports = function homePage(data) {
                         ]
                     }
                 ]
+            },
+            {
+                type: "flex",
+                direction: "col",
+                spacing: 2,
+                padding: {
+                    left: 2,
+                    right: 2
+                },
+                children: [
+                    {
+                        type: "text",
+                        style: "headline1",
+                        value: "Consommations:"
+                    },
+                    {
+                        type: "flex",
+                        direction: "row",
+                        children: [
+                            {
+                                type: "text",
+                                value: "YouTube"
+                            },
+                            {
+                                type: "dropdownButton",
+                                value: "YouTube"
+                            },
+                            {
+                                type: "text",
+                                value: "YouTube"
+                            }
+                        ]
+                    }
+                ]
             }
 
         ]
