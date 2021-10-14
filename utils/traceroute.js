@@ -20,9 +20,9 @@ module.exports = async (url) => {
             Promise.all(promises).then(ips => {
                 return cleanData(ips);
             }).then(ips => {
-                let _previous = 0;
+                let _previous = null;
                 ips.forEach(ip => {
-                    if (_previous != 0)
+                    if (_previous != null)
                         ip.data.distance = distanceUtils.getDistanceFromLatLon(ip.data.latitude, ip.data.longitude, _previous.data.latitude, _previous.data.longitude);
                     else
                         ip.data.distance = 0;
@@ -53,12 +53,12 @@ function cleanData(ips) {
     });
 
     return tmp.reduce((acc, curr) => {
-        const last = acc.last;
-        if(last && curr.latitude == last.latitude && curr.longitude == last.longitude) {
-            last.nbHops++;
+        const last = acc.length > 0 ? acc[acc.length - 1] : null;
+        if(last && curr.data.latitude == last.data.latitude && curr.data.longitude == last.data.longitude) {
+            last.data.nbHops++;
             return acc;
         } else {
-            curr.nbHops = 1;
+            curr.data.nbHops = 1;
             return acc.concat([curr]);
         }
       }, []);
