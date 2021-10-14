@@ -1,9 +1,9 @@
+const printConso = require("../../utils/printConso");
 const header = require("../components/header");
 
 
 module.exports = function resultPage(data) {
     console.log(data.dataset);
-    data.dataset.sites.map(console.log);
     return {
         type: "flex",
         direction: "col",
@@ -24,32 +24,52 @@ module.exports = function resultPage(data) {
                         spacing: 2,
                         crossAxisAlignment: "center",
                         children: [
-                            {
-                                type: "text",
-                                value: "Consommation Générale en kWh : ",
-                                style: "headline1"
-                            },
-                            {
-                                type: "text",
-                                style: "headline3",
-                                value: `0 kWh`
-                            }
-                        ]
-                    },
-                    {
-                        type: "flex",
-                        direction: "col",
-                        spacing: 2,
-                        children: [
-                            {
-                                type: "text",
-                                value: "Chemin que votre connexion emprunte : ",
-                                style: "headline2"
-                            },
-                            // TODO : Add cityHops below
+                            totalCons(data.dataset.total),
+                            specificCons(data.dataset)
                         ]
                     }
                 ]
+            }
+        ]
+    }
+}
+
+
+function totalCons(total) {
+    return {
+        type: "text",
+        value: printConso(total),
+        style: "headline1"
+    }
+}
+
+function specificCons(dataset) {
+    return {
+        type: "flex",
+        spacing: 3,
+        children: [
+            labeledCons("Smartphone", dataset.smartphone),
+            labeledCons("Transport", dataset.transport),
+            labeledCons("Datacenter", dataset.datacenter),
+        ]
+    }
+}
+
+function labeledCons(label, cons) {
+    return {
+        type: "flex",
+        direction: "col",
+        spacing: 1,
+        children: [
+            {
+                type: "text",
+                value: label,
+                style: "headline3"
+            },
+            {
+                type: "text",
+                value: printConso(cons),
+                style: "headline1"
             }
         ]
     }

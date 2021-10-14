@@ -38,7 +38,18 @@ async function calcForWebsite(site) {
     return {
         name: site.name,
         url: site.url,
-        consumptions: calcConsumption(res, parseFloat(site.form.hours), _const.YOUTUBE_1080),
+        consumptions: calcConsumption(res, parseFloat(site.form.hours), getDebit(site)),
         dataset: res,
     };
+}
+
+function getDebit(site) {
+    switch (site.name) {
+        case webistes.YOUTUBE.name:
+            return webistes.YOUTUBE.debit[site.form.quality];
+        case webistes.FACEBOOK.name:
+            return webistes.FACEBOOK.debit;
+        case webistes.INSTA.name:
+            return webistes.INSTA.debit;
+    }
 }

@@ -53,13 +53,14 @@ function cleanData(ips) {
     });
 
     return tmp.reduce((acc, curr) => {
+        if (!curr) return acc;
         const last = acc.length > 0 ? acc[acc.length - 1] : null;
-        if(last && curr.data.latitude == last.data.latitude && curr.data.longitude == last.data.longitude) {
+        if (last && curr.data.latitude == last.data.latitude && curr.data.longitude == last.data.longitude) {
             last.data.nbHops++;
             return acc;
         } else {
             curr.data.nbHops = 1;
             return acc.concat([curr]);
         }
-      }, []);
+    }, []);
 }

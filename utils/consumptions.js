@@ -65,7 +65,7 @@ function calcConsumption(data, duration, debit) {
     var sco2 = SCO2(dataVolume, getMix(data.hops[0].data.country_code));
     return {
         total: tco2 + ico2 + sco2,
-        transport: sco2,
+        transport: tco2,
         datacenter: ico2,
         smartphone: sco2,
     };
