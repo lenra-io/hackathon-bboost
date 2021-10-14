@@ -7,6 +7,9 @@ module.exports = async function initData() {
     console.log(JSON.stringify(res));
     return {
         page: "homePage",
-        value: JSON.stringify(res),
-    };
+        applications: ["YouTube", "Facebook", "Instagram", "Twitch", "Audi"],
+        selectedItems: [],
+        forms: {},
+        errors: {},
+    }
 }
