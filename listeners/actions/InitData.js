@@ -5,6 +5,7 @@ const traceroute = require("../../utils/traceroute")
 
 module.exports = async function initData() {
     console.log("InitDATA")
+    
     var data = await traceroute("www.youtube.com");
     var consumtions = consumptions(data, 1, _const.YOUTUBE_1080);
     console.log("CONSOMMATIONS");
@@ -15,5 +16,6 @@ module.exports = async function initData() {
         selectedItems: [],
         forms: {},
         errors: {},
+        ip: {},
     }
 }

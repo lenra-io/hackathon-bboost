@@ -6,4 +6,5 @@ module.exports = {
     SET_CHECKBOX: "CheckboxValue",
     SET_HOURS: "SetHours",
     SET_QUALITY: "SetQuality",
+    CALC_CONSUMPTION: "CalcConsumption"
 }

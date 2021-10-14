@@ -60,9 +60,9 @@ module.exports = function resultPage(data) {
                 children: [
                     {
                         type: "flex",
-                        children:[ 
-                            { 
-                                type: "text", 
+                        children:[
+                            {
+                                type: "text",
                                 value: "Consommation Générale en KW/H : ",
                                 style: "headline2"
                             },
@@ -76,6 +76,24 @@ module.exports = function resultPage(data) {
                                 type: "text",
                                 value: "Chemin que votre connexion empreinte : ",
                                 style: "headline2"
+                            },
+                            {
+                                type: "flex",
+                                direction: "col",
+                                children: data.consumptions.map(function(consumption) {
+                                    return {
+                                        type: "flex",
+                                        children: [
+                                            {
+                                                type: "text",
+                                                value: "ip: "+ consumption.ip
+                                            },{
+                                                type: "text",
+                                                value: "mac: "+ consumption.mac
+                                            }
+                                        ]
+                                    }
+                                })
                             }
                         ]
                     }
