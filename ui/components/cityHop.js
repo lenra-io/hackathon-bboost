@@ -1,6 +1,7 @@
 module.exports = cityHop;
 
-function cityHop(cityData, distance) {
+function cityHop(cityData, distance, isFirstHop = false) {
+
     return {
         type: "flex",
         direction: "col",
@@ -10,7 +11,7 @@ function cityHop(cityData, distance) {
             {
                 type: "text",
                 style: "headline4",
-                value: `${distance.toFixed(0)} km`
+                value: `${isFirstHop ? "Total" : ""} ${distance.toFixed(0)} km`
             },
             {
                 type: "styledContainer",

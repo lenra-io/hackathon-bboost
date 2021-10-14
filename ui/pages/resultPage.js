@@ -1,12 +1,12 @@
 const header = require("../components/header");
-
+const cityHops = require("../components/cityHops");
+const cityHop = require("../components/cityHop");
 
 module.exports = function resultPage(data) {
-    console.log(data.dataset);
-    data.dataset.sites.map(console.log);
     return {
         type: "flex",
         direction: "col",
+        scroll: true,
         spacing: 4,
         fillParent: true,
         crossAxisAlignment: "stretch",
@@ -47,6 +47,10 @@ module.exports = function resultPage(data) {
                                 style: "headline2"
                             },
                             // TODO : Add cityHops below
+
+                            cityHops(
+                                [cityHop(data.dataset.sites[0].dataset.hops[0].data, data.dataset.sites[0].dataset.totalDistance, true)].concat(data.dataset.sites[0].dataset.hops.slice(1).map(hop => cityHop(hop.data, hop.data.distance)))
+                            )
                         ]
                     }
                 ]
