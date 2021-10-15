@@ -16,7 +16,7 @@ const INSTA = {
 };
 
 const DAILYMOTION = {
-    url: "www.dailymotion.com",
+    url: "www.ville-rochefort.fr",
     name: "Dailymotion",
     debit: 2.1,
 };
