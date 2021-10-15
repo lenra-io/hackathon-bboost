@@ -8,17 +8,26 @@
   <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
   <script src="../node_modules/leaflet/dist/leaflet.js"></script>
   <script src="../node_modules/leaflet-image/leaflet-image.js"></script>
+  <link rel="stylesheet" href="./leaflet-print/leaflet.print.css">
+  <script src="./leaflet-print/leaflet.print.js"></script>
   <style>
+    #maps {
+      pointer-events: none;
+      overflow: hidden;
+      height: 0;
+    }
     #maps > div {
       height: 300px;
       width: 800px;
     }
-    #maps > h2{
+    #images > h2{
+      margin-left: 100px;
       text-transform: capitalize;
     }
   </style>
 </head>
 <body>
+  <div id="images"></div>
   <div id="maps"></div>
 
   <script>
@@ -30,25 +39,39 @@
 
     window.onload = function name(params) {
       const maps = document.getElementById('maps');
+      const images = document.getElementById('images');
 
       Object.keys(datas).forEach(site => {
-        const titleEl = document.createElement('h2');
-        titleEl.innerHTML = site;
-        maps.appendChild(titleEl);
-
         const data = datas[site];
 
         const mapEl = document.createElement('div');
         mapEl.id = `map-${site}`;
         maps.appendChild(mapEl);
 
-        const map = L.map(mapEl.id).setView([0, 0], 13);
+        const map = L.map(mapEl.id, {
+          renderer: L.canvas()
+        }).setView([0, 0], 13);
+
+        setTimeout(() => {
+          leafletImage(map, function(err, canvas) {
+            const titleEl = document.createElement('h2');
+            titleEl.innerHTML = site;
+            images.appendChild(titleEl);
+
+            var img = document.createElement('img');
+            var dimensions = map.getSize();
+            img.width = dimensions.x;
+            img.height = dimensions.y;
+            img.src = canvas.toDataURL();
+            images.appendChild(img);
+          });
+        }, 1000);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
           maxZoom: 18,
           id: 'mapbox/streets-v11',
           tileSize: 512,
-          zoomOffset: -1
+          zoomOffset: -1,
         }).addTo(map);
 
         // Add marker to each hop
