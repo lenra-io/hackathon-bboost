@@ -1,12 +1,15 @@
 const printConso = require("../../utils/printConso");
 const header = require("../components/header");
-
+const cityHops = require("../components/cityHops");
+const cityHop = require("../components/cityHop");
+const appSelectButtons = require("../components/appSelectButtons");
 
 module.exports = function resultPage(data) {
-    console.log(data.dataset);
+
     return {
         type: "flex",
         direction: "col",
+        scroll: true,
         spacing: 4,
         fillParent: true,
         crossAxisAlignment: "stretch",
@@ -26,6 +29,25 @@ module.exports = function resultPage(data) {
                         children: [
                             totalCons(data.dataset.total),
                             specificCons(data.dataset)
+                        ]
+                    },
+                    {
+                        type: "flex",
+                        direction: "col",
+                        spacing: 2,
+                        children: [
+                            {
+                                type: "text",
+                                value: "Chemin que votre connexion emprunte : ",
+                                style: "headline2"
+                            },
+                            // TODO : Add cityHops below
+                            appSelectButtons(data.dataset.sites),
+
+                            cityHops(
+                                [cityHop(data.dataset.sites[data.selectedApp].dataset.hops[0].data, data.dataset.sites[data.selectedApp].dataset.totalDistance, true)].concat(data.dataset.sites[data.selectedApp].dataset.hops.slice(1).map(hop => cityHop(hop.data, hop.data.distance)))
+                            )
+
                         ]
                     }
                 ]
