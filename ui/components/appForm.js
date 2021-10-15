@@ -10,7 +10,7 @@ function appForm(applicationName, forms, errors) {
         },
     ];
 
-    if (applicationName == "YouTube") {
+    /*if (applicationName == "YouTube") {
         fields.push({
             type: "flex",
             direction: "col",
@@ -43,26 +43,26 @@ function appForm(applicationName, forms, errors) {
                 },
                 {
                     type: "radio",
-                    value: "480",
+                    value: "360",
                     groupValue: forms[applicationName] != null ? forms[applicationName].quality : "",
-                    label: "480p",
+                    label: "360p",
                     onPressed: {
                         action: actions.SET_QUALITY,
                         props: {
                             page: applicationName,
-                            quality: "480"
+                            quality: "360"
                         }
                     }
                 }
             ]
         });
-    }
+    }*/
 
     fields.push({
         type: "textfield",
         value: "",
         error: applicationName in errors,
-        hintText: "Nombre d'heures (15min = 0.25)",
+        hintText: "Nombre d'heures",
         onChanged: {
             action: actions.SET_HOURS,
             props: {

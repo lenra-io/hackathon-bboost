@@ -19,8 +19,14 @@ async function calcForForm(forms) {
         site.form = forms[key];
         return site;
     });
-    var sitesConsumptionsF = sites.map(calcForWebsite);
-    var sitesConsumptions = await Promise.all(sitesConsumptionsF);
+    var sitesConsumptions = [];
+    for (var site of sites) {
+        console.log(site);
+        sitesConsumptions.push(await calcForWebsite(site));
+        console.log(sitesConsumptions);
+    }
+    // var sitesConsumptionsF = sites.map(calcForWebsite);
+    // var sitesConsumptions = await Promise.all(sitesConsumptionsF);
     var totals = sitesConsumptions.reduce((acc, siteCons) => {
         acc.total += siteCons.consumptions.total;
         acc.transport += siteCons.consumptions.transport;
@@ -46,10 +52,12 @@ async function calcForWebsite(site) {
 function getDebit(site) {
     switch (site.name) {
         case webistes.YOUTUBE.name:
-            return webistes.YOUTUBE.debit[site.form.quality];
+            return webistes.YOUTUBE.debit;
         case webistes.FACEBOOK.name:
             return webistes.FACEBOOK.debit;
         case webistes.INSTA.name:
             return webistes.INSTA.debit;
+        case webistes.DAILYMOTION.name:
+            return webistes.DAILYMOTION.debit;
     }
 }

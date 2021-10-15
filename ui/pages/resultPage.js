@@ -44,6 +44,7 @@ module.exports = function resultPage(data) {
                             },
                             // TODO : Add cityHops below
                             appSelectButtons(data.dataset.sites),
+                            totalCons(data.dataset.sites[data.selectedApp].consumptions.total),
 
                             cityHops(
                                 [cityHop(data.dataset.sites[data.selectedApp].dataset.hops[0].data, data.dataset.sites[data.selectedApp].dataset.totalDistance, true)].concat(data.dataset.sites[data.selectedApp].dataset.hops.slice(1).map(hop => cityHop(hop.data, hop.data.distance)))
@@ -92,7 +93,7 @@ function labeledCons(label, cons) {
             {
                 type: "text",
                 value: printConso(cons),
-                style: "headline1"
+                style: "headline2"
             }
         ]
     }

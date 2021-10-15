@@ -7,6 +7,7 @@ module.exports = async (url) => {
         const tracer = new Traceroute();
         const promises = [];
         tracer.on("hop", (hop) => {
+            console.log(hop);
             promises.push(
                 ipToContryCode(hop.ip).then((data) => {
                     return {

@@ -1,11 +1,7 @@
 const YOUTUBE = {
     url: "www.youtube.com",
     name: "YouTube",
-    debit: {
-        "1080": 2.1,
-        "720": 1.6,
-        "360": 0.5,
-    }
+    debit: 2.1,
 };
 const FACEBOOK = {
     url: "www.facebook.com",
@@ -19,14 +15,23 @@ const INSTA = {
     debit: 0.1,
 };
 
+const DAILYMOTION = {
+    url: "www.dailymotion.com",
+    name: "Dailymotion",
+    debit: 2.1,
+};
+
+
 module.exports = {
     YOUTUBE: YOUTUBE,
     FACEBOOK: FACEBOOK,
     INSTA: INSTA,
+    DAILYMOTION: DAILYMOTION,
     fromName: {
         [INSTA.name]: INSTA,
         [YOUTUBE.name]: YOUTUBE,
-        [FACEBOOK.name]: FACEBOOK
+        [FACEBOOK.name]: FACEBOOK,
+        [DAILYMOTION.name]: DAILYMOTION,
     },
-    apps: [YOUTUBE, FACEBOOK, INSTA],
+    apps: [YOUTUBE, FACEBOOK, INSTA, DAILYMOTION],
 }
