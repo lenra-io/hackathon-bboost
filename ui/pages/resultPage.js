@@ -3,6 +3,7 @@ const header = require("../components/header");
 const cityHops = require("../components/cityHops");
 const cityHop = require("../components/cityHop");
 const appSelectButtons = require("../components/appSelectButtons");
+const map = require("../components/map");
 
 module.exports = function resultPage(data) {
 
@@ -43,8 +44,10 @@ module.exports = function resultPage(data) {
                                 style: "headline2"
                             },
                             // TODO : Add cityHops below
-                            appSelectButtons(data.dataset.sites),
+                            appSelectButtons(data.dataset.sites, data.selectedApp),
                             totalCons(data.dataset.sites[data.selectedApp].consumptions.total),
+
+                            map(data.dataset.sites[data.selectedApp].name),
 
                             cityHops(
                                 [cityHop(data.dataset.sites[data.selectedApp].dataset.hops[0].data, data.dataset.sites[data.selectedApp].dataset.totalDistance, true)].concat(data.dataset.sites[data.selectedApp].dataset.hops.slice(1).map(hop => cityHop(hop.data, hop.data.distance)))

@@ -7,6 +7,7 @@ module.exports = function header() {
             direction: "row",
             fillParent: true,
             mainAxisAlignment: "spaceBetween",
+            crossAxisAlignment: "center",
             padding: {
                 left: 2,
                 right: 2,
@@ -23,6 +24,11 @@ module.exports = function header() {
                             path: "bboost.png"
                         }
                     ]
+                },
+                {
+                    type: "text",
+                    value: "Trace Carbone",
+                    style: "headline1"
                 },
                 {
                     type: "flex",
