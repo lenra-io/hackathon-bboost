@@ -7,9 +7,8 @@ module.exports = async (action, data, props, event) => {
   try {
     var actionFunction = require(`./actions/${action}`);
     if (actionFunction == null) require(`./actions/${actions.DEFAULT_ACTION}`);
-    return actionFunction(data, props, event);
+    return await actionFunction(data, props, event);
   } catch (exc) {
-
     console.log("Exception while executing action " + action, exc);
   }
   return data;

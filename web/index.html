@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet Generator</title>
+  <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
+  <script src="../node_modules/leaflet/dist/leaflet.js"></script>
+  <script src="../node_modules/leaflet-image/leaflet-image.js"></script>
+  <link rel="stylesheet" href="./leaflet-print/leaflet.print.css">
+  <script src="./leaflet-print/leaflet.print.js"></script>
+  <style>
+    #maps {
+      pointer-events: none;
+      overflow: hidden;
+      height: 0;
+    }
+    #maps > div {
+      height: 300px;
+      width: 800px;
+    }
+    #images > h2{
+      margin-left: 100px;
+      text-transform: capitalize;
+    }
+  </style>
+</head>
+<body>
+  <div id="images"></div>
+  <div id="maps"></div>
+
+  <script>
+    const datas = {
+      "youtube": {"hops":[{"ip":"192.168.1.1","data":{"country_code":"FR","city":"La Rochelle","latitude":46.14998051397976,"longitude":-1.1512845018323963,"nbHops":1,"distance":0}},{"ip":"80.10.237.65","data":{"country_code":"FR","latitude":45.764043,"longitude":4.835659,"city":"Lyon","nbHops":1,"distance":464.67891215035587}},{"ip":"193.253.93.86","data":{"country_code":"FR","latitude":48.117266,"longitude":-1.6777926,"city":"Rennes","nbHops":2,"distance":559.1967020183588}},{"ip":"193.252.137.14","data":{"country_code":"FR","latitude":43.7101728,"longitude":7.2619532,"city":"Nice","nbHops":1,"distance":846.7412619783032}},{"ip":"193.251.255.116","data":{"country_code":"FR","latitude":48.856614,"longitude":2.3522219,"city":"Paris","nbHops":2,"distance":685.1086000245363}},{"ip":"216.239.48.43","data":{"country_code":"US","latitude":38.9071923,"longitude":-77.0368707,"city":"Washington","nbHops":1,"distance":6164.810049947095}},{"ip":"216.58.214.174","data":{"country_code":"US","latitude":37.3860517,"longitude":-122.0838511,"city":"Mountain View","nbHops":1,"distance":3902.4619032931378}}],"nbHops":9,"totalDistance":12622.997429411786},
+      "facebook": {"hops":[{"ip":"192.168.1.1","data":{"country_code":"FR","city":"La Rochelle","latitude":46.14998051397976,"longitude":-1.1512845018323963,"nbHops":1,"distance":0}},{"ip":"80.10.237.65","data":{"country_code":"FR","latitude":45.764043,"longitude":4.835659,"city":"Lyon","nbHops":1,"distance":464.67891215035587}},{"ip":"193.253.93.86","data":{"country_code":"FR","latitude":48.117266,"longitude":-1.6777926,"city":"Rennes","nbHops":2,"distance":559.1967020183588}},{"ip":"193.252.137.14","data":{"country_code":"FR","latitude":43.7101728,"longitude":7.2619532,"city":"Nice","nbHops":1,"distance":846.7412619783032}},{"ip":"193.251.251.110","data":{"country_code":"FR","latitude":48.856614,"longitude":2.3522219,"city":"Paris","nbHops":1,"distance":685.1086000245363}},{"ip":"129.134.38.80","data":{"country_code":"US","latitude":38.9071923,"longitude":-77.0368707,"city":"Washington","nbHops":2,"distance":6164.810049947095}},{"ip":"173.252.67.175","data":{"country_code":"US","latitude":37.4529598,"longitude":-122.1817252,"city":"Menlo Park","nbHops":1,"distance":3908.6083258816275}},{"ip":"157.240.21.35","data":{"country_code":"FR","latitude":48.856614,"longitude":2.3522219,"city":"Paris","nbHops":1,"distance":8971.836690286955}}],"nbHops":10,"totalDistance":21600.98054228723},
+      "instagram": {"hops":[{"ip":"192.168.1.1","data":{"country_code":"FR","city":"La Rochelle","latitude":46.14998051397976,"longitude":-1.1512845018323963,"nbHops":1,"distance":0}},{"ip":"80.10.237.65","data":{"country_code":"FR","latitude":45.764043,"longitude":4.835659,"city":"Lyon","nbHops":1,"distance":464.67891215035587}},{"ip":"193.253.93.86","data":{"country_code":"FR","latitude":48.117266,"longitude":-1.6777926,"city":"Rennes","nbHops":2,"distance":559.1967020183588}},{"ip":"193.252.137.14","data":{"country_code":"FR","latitude":43.7101728,"longitude":7.2619532,"city":"Nice","nbHops":1,"distance":846.7412619783032}},{"ip":"193.251.251.108","data":{"country_code":"FR","latitude":48.856614,"longitude":2.3522219,"city":"Paris","nbHops":1,"distance":685.1086000245363}},{"ip":"129.134.41.242","data":{"country_code":"US","latitude":38.9071923,"longitude":-77.0368707,"city":"Washington","nbHops":2,"distance":6164.810049947095}},{"ip":"173.252.67.143","data":{"country_code":"US","latitude":37.4529598,"longitude":-122.1817252,"city":"Menlo Park","nbHops":1,"distance":3908.6083258816275}},{"ip":"157.240.21.174","data":{"country_code":"FR","latitude":48.856614,"longitude":2.3522219,"city":"Paris","nbHops":1,"distance":8971.836690286955}}],"nbHops":10,"totalDistance":21600.98054228723}
+    }
+
+    window.onload = function name(params) {
+      const maps = document.getElementById('maps');
+      const images = document.getElementById('images');
+
+      Object.keys(datas).forEach(site => {
+        const data = datas[site];
+
+        const mapEl = document.createElement('div');
+        mapEl.id = `map-${site}`;
+        maps.appendChild(mapEl);
+
+        const map = L.map(mapEl.id, {
+          renderer: L.canvas()
+        }).setView([0, 0], 13);
+
+        setTimeout(() => {
+          leafletImage(map, function(err, canvas) {
+            const titleEl = document.createElement('h2');
+            titleEl.innerHTML = site;
+            images.appendChild(titleEl);
+
+            var img = document.createElement('img');
+            var dimensions = map.getSize();
+            img.width = dimensions.x;
+            img.height = dimensions.y;
+            img.src = canvas.toDataURL();
+            images.appendChild(img);
+          });
+        }, 1000);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+          maxZoom: 18,
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1,
+        }).addTo(map);
+
+        // Add marker to each hop
+        const markers = [];
+        for (var i = 0; i < data.hops.length; i++) {
+          var hop = data.hops[i];
+          var marker = L.marker([hop.data.latitude, hop.data.longitude]).addTo(map);
+          marker.bindPopup("<b>IP:</b> " + hop.ip + "<br>" +
+            "<b>Country Code:</b> " + hop.data.country_code + "<br>" +
+            "<b>City:</b> " + hop.data.city + "<br>" +
+            "<b>Distance:</b> " + hop.data.distance + "<br>" +
+            "<b>Nb Hops:</b> " + hop.data.nbHops + "<br>"
+          );
+          markers.push(marker);
+        }
+
+        // Center map view on all markers
+        map.fitBounds(L.featureGroup(markers).getBounds());
+
+        // Add lines between markers with arrowheads
+        for (var i = 0; i < data.hops.length - 1; i++) {
+          var hop1 = data.hops[i];
+          var hop2 = data.hops[i + 1];
+          var line = L.polyline([
+            [hop1.data.latitude, hop1.data.longitude],
+            [hop2.data.latitude, hop2.data.longitude]
+          ], {
+            color: 'red',
+            weight: 1.5,
+            opacity: 0.5,
+            smoothFactor: 1
+          }).addTo(map);
+          line.bindPopup("<b>IP:</b> " + hop1.ip + "-> " + hop2.ip + "<br>" +
+            "<b>Country Code:</b> " + hop1.data.country_code + "->" + hop2.data.country_code + "<br>" +
+            "<b>City:</b> " + hop1.data.city + "->" + hop2.data.city + "<br>" +
+            "<b>Distance:</b> " + hop1.data.distance + "Km <br>"
+          );
+        }
+      });
+
+    }
+
+  </script>
+</body>
+</html>
