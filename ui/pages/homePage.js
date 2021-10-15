@@ -1,103 +1,6 @@
-const actions = require("../../listeners/actions");
-
-function checkbox(applicationname, data) {
-    return {
-        type: "flex",
-        direction: "col",
-        crossAxisAlignment: "center",
-        children: [
-            {
-                type: "text",
-                value: applicationname
-            },
-            {
-                type: "checkbox",
-                value: data.selectedItems.includes(applicationname),
-                onPressed: {
-                    action: actions.SET_CHECKBOX,
-                    props: {
-                        page: applicationname,
-                    }
-                }
-            }
-        ]
-    }
-}
-
-function appForm(applicationName, data) {
-    let fields = [
-        {
-            type: "text",
-            value: applicationName,
-        },
-    ];
-
-    if (applicationName == "YouTube") {
-        fields.push({
-            type: "dropdownButton",
-            text: "Qualité",
-            icon: "arrow_drop_down",
-            size: "small",
-            child: {
-                type: "menu",
-                children: [
-                    {
-                        type: "menuItem",
-                        text: "1080p",
-                        onPressed: {
-                            action: actions.SET_QUALITY,
-                            props: {
-                                quality: 1080
-                            }
-                        }
-                    },
-                    {
-                        type: "menuItem",
-                        text: "720p",
-                        onPressed: {
-                            action: actions.SET_QUALITY,
-                            props: {
-                                quality: 720
-                            }
-                        }
-                    },
-                    {
-                        type: "menuItem",
-                        text: "480p",
-                        onPressed: {
-                            action: actions.SET_QUALITY,
-                            props: {
-                                quality: 480
-                            }
-                        }
-                    }
-                ]
-            }
-        });
-    }
-
-    fields.push({
-        type: "textfield",
-        value: "",
-        error: applicationName in data.errors,
-        hintText: "Nombre d'heures (15min = 0.25)",
-        onChanged: {
-            action: actions.SET_HOURS,
-            props: {
-                page: applicationName
-            }
-        },
-    });
-
-    return {
-        type: "flex",
-        mainAxisAlignment: "center",
-        crossAxisAlignment: "center",
-        fillParent: true,
-        spacing: 1,
-        children: fields
-    }
-}
+const appCheckbox = require("../components/appCheckbox");
+const appForm = require("../components/appForm");
+const header = require("../components/header");
 
 function showValidateButton(data) {
     if (data.selectedItems.length > 0) {
@@ -128,52 +31,7 @@ module.exports = function homePage(data) {
         scroll: true,
         crossAxisAlignment: "stretch",
         children: [
-            {
-                type: "styledContainer",
-                color: 0xFFFFFFFF,
-
-                child: {
-                    type: "flex",
-                    direction: "row",
-                    fillParent: true,
-                    mainAxisAlignment: "spaceBetween",
-                    padding: {
-                        left: 2,
-                        right: 2,
-                        top: 2,
-                        bottom: 2,
-                    },
-                    children: [
-                        {
-                            type: "flex",
-                            direction: "row",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "bboost.png"
-                                }
-                            ]
-                        },
-                        {
-                            type: "flex",
-                            direction: "row",
-                            spacing: 1.5,
-                            crossAxisAlignment: "center",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "logo-only-black-x64.png"
-                                },
-                                {
-                                    type: "text",
-                                    style: "headline1",
-                                    value: "Lenra"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
+            header(),
             {
                 type: "flex",
                 direction: "col",
@@ -197,7 +55,7 @@ module.exports = function homePage(data) {
                         children: [{
                             type: "flex",
                             spacing: 2,
-                            children: data.applications.map(application => checkbox(application, data))
+                            children: data.applications.map(application => appCheckbox(application, data.selectedItems))
                         }]
                     }
                 ]
@@ -221,7 +79,7 @@ module.exports = function homePage(data) {
                         type: "flex",
                         spacing: 5,
                         direction: "col",
-                        children: data.selectedItems.map(application => appForm(application, data))
+                        children: data.selectedItems.map(application => appForm(application, data.forms, data.errors))
                     }
 
                 ]
@@ -234,7 +92,6 @@ module.exports = function homePage(data) {
                 crossAxisAlignment: "end",
                 children: [showValidateButton(data)],
             }
-
         ]
     }
 

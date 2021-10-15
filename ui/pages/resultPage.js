@@ -1,57 +1,20 @@
+const printConso = require("../../utils/printConso");
+const header = require("../components/header");
+const cityHops = require("../components/cityHops");
+const cityHop = require("../components/cityHop");
+const appSelectButtons = require("../components/appSelectButtons");
+
 module.exports = function resultPage(data) {
+
     return {
         type: "flex",
         direction: "col",
+        scroll: true,
         spacing: 4,
         fillParent: true,
         crossAxisAlignment: "stretch",
         children: [
-            {
-                type: "styledContainer",
-                color: 0xFFFFFFFF,
-
-                child: {
-                    type: "flex",
-                    direction: "row",
-                    fillParent: true,
-                    mainAxisAlignment: "spaceBetween",
-                    padding: {
-                        left: 2,
-                        right: 2,
-                        top: 2,
-                        bottom: 2,
-                    },
-                    children: [
-                        {
-                            type: "flex",
-                            direction: "row",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "bboost.png"
-                                }
-                            ]
-                        },
-                        {
-                            type: "flex",
-                            direction: "row",
-                            spacing: 1.5,
-                            crossAxisAlignment: "center",
-                            children: [
-                                {
-                                    type: "image",
-                                    path: "logo-only-black-x64.png"
-                                },
-                                {
-                                    type: "text",
-                                    style: "headline1",
-                                    value: "Lenra"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            },
+            header(),
             {
                 type: "flex",
                 direction: "col",
@@ -60,44 +23,77 @@ module.exports = function resultPage(data) {
                 children: [
                     {
                         type: "flex",
-                        children:[
-                            {
-                                type: "text",
-                                value: "Consommation Générale en KW/H : ",
-                                style: "headline2"
-                            },
-                        // {type: "text", value: data}
+                        direction: "col",
+                        spacing: 2,
+                        crossAxisAlignment: "center",
+                        children: [
+                            totalCons(data.dataset.total),
+                            specificCons(data.dataset)
                         ]
                     },
                     {
                         type: "flex",
+                        direction: "col",
+                        crossAxisAlignment: "center",
+                        spacing: 2,
                         children: [
                             {
                                 type: "text",
-                                value: "Chemin que votre connexion empreinte : ",
+                                value: "Chemin que votre connexion emprunte : ",
                                 style: "headline2"
                             },
-                            {
-                                type: "flex",
-                                direction: "col",
-                                children: data.consumptions.map(function(consumption) {
-                                    return {
-                                        type: "flex",
-                                        children: [
-                                            {
-                                                type: "text",
-                                                value: "ip: "+ consumption.ip
-                                            },{
-                                                type: "text",
-                                                value: "mac: "+ consumption.mac
-                                            }
-                                        ]
-                                    }
-                                })
-                            }
+                            // TODO : Add cityHops below
+                            appSelectButtons(data.dataset.sites),
+                            totalCons(data.dataset.sites[data.selectedApp].consumptions.total),
+
+                            cityHops(
+                                [cityHop(data.dataset.sites[data.selectedApp].dataset.hops[0].data, data.dataset.sites[data.selectedApp].dataset.totalDistance, true)].concat(data.dataset.sites[data.selectedApp].dataset.hops.slice(1).map(hop => cityHop(hop.data, hop.data.distance)))
+                            )
+
                         ]
                     }
                 ]
+            }
+        ]
+    }
+}
+
+
+function totalCons(total) {
+    return {
+        type: "text",
+        value: printConso(total),
+        style: "headline1"
+    }
+}
+
+function specificCons(dataset) {
+    return {
+        type: "flex",
+        spacing: 3,
+        children: [
+            labeledCons("Smartphone", dataset.smartphone),
+            labeledCons("Transport", dataset.transport),
+            labeledCons("Datacenter", dataset.datacenter),
+        ]
+    }
+}
+
+function labeledCons(label, cons) {
+    return {
+        type: "flex",
+        direction: "col",
+        spacing: 1,
+        children: [
+            {
+                type: "text",
+                value: label,
+                style: "headline3"
+            },
+            {
+                type: "text",
+                value: printConso(cons),
+                style: "headline2"
             }
         ]
     }

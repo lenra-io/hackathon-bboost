@@ -14,6 +14,5 @@ module.exports = (data, props, event) => {
         }
     }
 
-    console.log(data);
     return data;
 }

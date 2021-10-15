@@ -62,8 +62,13 @@ function calcConsumption(data, duration, debit) {
     var dataVolume = getVolume(duration, debit);
     var tco2 = TCO2(dataVolume, percentMEMap);
     var ico2 = ICO2(dataVolume, getMix(data.hops[data.hops.length - 1].data.country_code));
-    var dco2 = SCO2(dataVolume, getMix(data.hops[0].data.country_code));
-    return tco2 + ico2 + dco2;
+    var sco2 = SCO2(dataVolume, getMix(data.hops[0].data.country_code));
+    return {
+        total: tco2 + ico2 + sco2,
+        transport: tco2,
+        datacenter: ico2,
+        smartphone: sco2,
+    };
 }
 
 
