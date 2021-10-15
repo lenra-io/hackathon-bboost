@@ -7,6 +7,7 @@ function appSelectButtons(siteList) {
         type: "flex",
         direction: "row",
         fillParent: true,
+        mainAxisAlignment: "center",
         crossAxisAlignment: "center",
         spacing: 2,
         children: siteList.map(function (site, index) {

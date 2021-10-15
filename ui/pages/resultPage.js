@@ -34,6 +34,7 @@ module.exports = function resultPage(data) {
                     {
                         type: "flex",
                         direction: "col",
+                        crossAxisAlignment: "center",
                         spacing: 2,
                         children: [
                             {
