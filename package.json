@@ -12,5 +12,9 @@
   "dependencies": {
     "axios": "^0.23.0",
     "nodejs-traceroute": "^1.2.0"
+  },
+  "devDependencies": {
+    "leaflet": "^1.7.1",
+    "leaflet-image": "^0.4.0"
   }
 }
