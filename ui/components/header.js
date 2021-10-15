@@ -27,7 +27,7 @@ module.exports = function header() {
                 {
                     type: "flex",
                     direction: "row",
-                    spacing: 1.5,
+                    spacing: 1,
                     crossAxisAlignment: "center",
                     children: [
                         {
@@ -36,7 +36,7 @@ module.exports = function header() {
                         },
                         {
                             type: "text",
-                            style: "headline1",
+                            style: "headline3",
                             value: "Lenra"
                         }
                     ]
